@@ -14,7 +14,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Reactive Feedback</h1>
-        {!auth.user && <button onClick={auth.signInWithGithub}>Sign In</button>}
+        {!auth.user && (
+          <button onClick={auth.signInWithGithub}>Sign In With Github</button>
+        )}
         <div>{auth.user?.displayName}</div>
         {auth.user && <button onClick={auth.signout}>Sign Out</button>}
       </main>
