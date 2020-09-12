@@ -1,35 +1,64 @@
 import Head from "next/head"
-import styles from "../styles/Home.module.css"
-import { useAuth } from "../lib/auth"
+import Link from "next/link"
+import {
+  Button,
+  Heading,
+  Text,
+  Code,
+  Flex,
+  Image,
+  Icon,
+  Box,
+} from "@chakra-ui/core"
+
+import { useAuth } from "@/lib/auth"
 
 export default function Home() {
   const auth = useAuth()
-  console.log(auth.user)
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
-        <link rel='icon' href='/favicon.ico' />
+        <title>Reactive Feedback</title>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Reactive Feedback</h1>
-        {!auth.user && (
-          <button onClick={auth.signInWithGithub}>Sign In With Github</button>
+      <Flex
+        as='main'
+        direction='column'
+        align='center'
+        justify='center'
+        height='100vh'>
+        <Icon name='logo' size='120px' mb={-2} mr={4} />
+        <Heading mb={4}>Reactive FeedBack</Heading>
+        <Box width={500} my={2} shadow={100}>
+          <Text
+            display='flex'
+            flexDirection='column'
+            justifyContent='center'
+            alignItems='center'
+            p={10}
+            textAlign='center'
+            fontWeight='bold'
+            color='pink.500'>
+            "Reactive Feedback" &copy; was made with the consideration of
+            creating a SaaS that provides the users an ability to collect all
+            sites you are promoting and work with the feedback for those sites
+            from one place!
+          </Text>
+        </Box>
+        {!auth.user ? (
+          <Button variantColor='teal' onClick={auth.signInWithGithub}>
+            Log In
+          </Button>
+        ) : (
+          <Flex direction='row' width='300px' justify='center'>
+            <Link href='/dashboard'>
+              <Button href='/dashboard' variantColor='teal'>
+                Dashboard
+              </Button>
+            </Link>
+          </Flex>
         )}
-        <div>{auth.user?.displayName}</div>
-        {auth.user && <button onClick={auth.signout}>Sign Out</button>}
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'>
-          Powered by{" "}
-          <img src='/vercel.svg' alt='Vercel Logo' className={styles.logo} />
-        </a>
-      </footer>
+      </Flex>
     </div>
   )
 }
