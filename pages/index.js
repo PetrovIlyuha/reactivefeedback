@@ -19,6 +19,15 @@ export default function Home() {
   return (
     <div>
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (document.cookie && document.cookie.includes('react-feedback-auth')) {
+                window.location.href = "/dashboard"
+              }
+            `,
+          }}
+        />
         <title>Reactive Feedback</title>
       </Head>
       <Flex
